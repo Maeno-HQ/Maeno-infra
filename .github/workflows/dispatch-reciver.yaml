@@ -12,3 +12,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ${{github.event.inputs.id}}
+        run: echo run identifier ${{ inputs.id }}
