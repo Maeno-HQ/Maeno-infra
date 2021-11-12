@@ -13,3 +13,8 @@ jobs:
     steps:
       - name: ${{github.event.inputs.version_id}}
         run: echo run identifier ${{ inputs.version_id }}
+        
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
