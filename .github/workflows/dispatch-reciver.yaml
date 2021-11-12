@@ -28,7 +28,7 @@ jobs:
           
       - name: update the version
         env:
-          VERSION: ${{ inputs.version_id }}
+          VERSION: ${{github.event.inputs.version_id}}
         run: "sed -i -E \"s/image: kshithija\\/maeno-fe:v[0-9]+\\.[0-9]+\\.[0-9]+/image: kshithija\\/maeno-fe:$VERSION/g\" ./infra-code/maeno-fe.yaml"
         
       - name: Commit version update
