@@ -15,8 +15,6 @@ jobs:
     name: Workflow ID Provider
     runs-on: self-hosted
     steps:
-      - name: ${{github.event.inputs.version_id}}
-        run: echo run identifier ${{ inputs.version_id }}
         
       - name: checkout
         uses: actions/checkout@v2
@@ -38,3 +36,27 @@ jobs:
           
       - name: deploy
         run: "kubectl apply -f ./infra-code -R"
+          
+      - name: Build artifacts
+        run: zip -r maeno-infra.zip .
+        
+      - name: Release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: maeno-infra-${{github.event.inputs.version_id}}
+          tag_name: ${{github.event.inputs.version_id}}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          
+      - name: Upload linux artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./maeno-infra.zip
+          asset_name: maeno-infra.zip
+          asset_content_type: application/zip
