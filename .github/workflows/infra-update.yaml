@@ -1,0 +1,22 @@
+name: Dispatcher
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: FE-Deployment
+
+jobs:
+  build_release:
+    name: build_release
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: deploy
+        run: "kubectl apply -f ./infra-code -R"

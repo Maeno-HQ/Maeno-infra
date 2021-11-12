@@ -12,7 +12,7 @@ concurrency:
   
 jobs:
   id:
-    name: Workflow ID Provider
+    name: Deploy to production
     runs-on: self-hosted
     steps:
         

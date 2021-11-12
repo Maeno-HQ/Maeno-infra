@@ -1,19 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: apache-deployment
+  name: maeno-frontend
+  namespace: maeno-fe
   labels:
     role: webserver
 spec:
   replicas: 2
   selector:
     matchLabels:
-      role: webserver
+      role: maeno-frontend-webserver
   template:
     metadata:
       labels:
-        role: webserver
+        role: maeno-frontend-webserver
     spec:
       containers:
-      - name: frontend
+      - name: webserver
         image: kshithija/maeno-fe:v1.0.0
