@@ -23,6 +23,9 @@ jobs:
         with:
           fetch-depth: 0
           
+      - name: Location
+        run: pwd
+          
       - name: update the version
         env:
           VERSION: ${{ inputs.version_id }}
