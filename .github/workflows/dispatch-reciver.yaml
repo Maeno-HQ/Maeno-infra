@@ -27,7 +27,9 @@ jobs:
         run: pwd
           
       - name: update the version
-        run: "sed -i -E \"s/image: kshithija\\/maeno-fe:v[0-9]+\\.[0-9]+\\.[0-9]+/image: kshithija\\/maeno-fe:${{ inputs.version_id }}/g\" ./infra-code/maeno-fe.yaml"
+        env:
+          VERSION: ${{ inputs.version_id }}
+        run: "sed -i -E \"s/image: kshithija\\/maeno-fe:v[0-9]+\\.[0-9]+\\.[0-9]+/image: kshithija\\/maeno-fe:$VERSION/g\" ./infra-code/maeno-fe.yaml"
         
       - name: Commit version update
         run: |
