@@ -9,7 +9,7 @@ on:
 jobs:
   id:
     name: Workflow ID Provider
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: ${{github.event.inputs.id}}
         run: echo run identifier ${{ inputs.id }}
