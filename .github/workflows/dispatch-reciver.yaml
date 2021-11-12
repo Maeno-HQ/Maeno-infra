@@ -24,6 +24,8 @@ jobs:
           fetch-depth: 0
           
       - name: update the version
+        env:
+          VERSION: ${{ inputs.version_id }}
         run: "sed -i -E \"s/image: kshithija\/maeno-hq-01:v[0-9]+\.[0-9]+\.[0-9]+/image: kshithija\/maeno-hq-01:$VERSION/g\" ./infra-code/maeno-fe.yaml"
         
       - name: Commit version update
