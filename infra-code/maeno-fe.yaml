@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: kshithija/maeno-hq-01:v1.0.0
+        image: kshithija/maeno-fe:v1.0.0
