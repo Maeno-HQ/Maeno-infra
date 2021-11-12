@@ -3,7 +3,7 @@ name: Dispacher Reciver
 on:
   workflow_dispatch:
     inputs:
-      id:
+      version_id:
         description: 'run identifier'
         required: false
 jobs:
@@ -11,5 +11,5 @@ jobs:
     name: Workflow ID Provider
     runs-on: self-hosted
     steps:
-      - name: ${{github.event.inputs.id}}
-        run: echo run identifier ${{ inputs.id }}
+      - name: ${{github.event.inputs.version_id}}
+        run: echo run identifier ${{ inputs.version_id }}
