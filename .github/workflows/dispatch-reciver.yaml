@@ -4,8 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       version_id:
-        description: 'run identifier'
-        required: false
+        description: 'updated version'
+        required: true
+        
+concurrency:
+  group: FE-Deployment
+  
 jobs:
   id:
     name: Workflow ID Provider
@@ -19,5 +23,13 @@ jobs:
         with:
           fetch-depth: 0
           
+      - name: update the version
+        run: "sed -i -E \"s/image: kshithija\/maeno-hq-01:v[0-9]+\.[0-9]+\.[0-9]+/image: kshithija\/maeno-hq-01:$VERSION/g\" ./infra-code/maeno-fe.yaml"
+        
+      - name: Commit version update
+        run: |
+          git commit -am "Automated version update"
+          git push origin main
+          
       - name: deploy
-        run: "kubectl apply -f ./*.yaml"
+        run: "kubectl apply -f ./infra-code -R"
