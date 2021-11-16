@@ -13,14 +13,14 @@ jobs:
     name: build_release
     runs-on: self-hosted
     steps:
-      - name: Version
-        run: echo "::set-output name=version::$(cat version | cut -d ':' -f2 | awk '{$1=$1};1')"
-        id: version
-        
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: Version
+        run: echo "::set-output name=version::$(cat version | cut -d ':' -f2 | awk '{$1=$1};1')"
+        id: version
 
       - name: deploy
         run: "kubectl apply -f ./infra-code -R"
