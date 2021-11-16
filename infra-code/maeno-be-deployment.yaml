@@ -17,4 +17,5 @@ spec:
     spec:
       containers:
       - name: backendserver
+        imagePullPolicy: Always
         image: kshithija/maeno-be:v1.0.0

@@ -31,7 +31,7 @@ jobs:
         
       - name: Commit version update
         run: |
-          git commit -am "Automated version update"
+          test -z "$(git diff-index --name-only HEAD --)" || git commit -am "Automated version update"
           git push origin main
           
       - name: deploy
