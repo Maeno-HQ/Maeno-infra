@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maeno-backend
+  namespace: maeno-be
+  labels:
+    role: backendserver
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      role: maeno-backend-webserver
+  template:
+    metadata:
+      labels:
+        role: maeno-backend-webserver
+    spec:
+      containers:
+      - name: backendserver
+        image: kshithija/maeno-be:v1.0.0

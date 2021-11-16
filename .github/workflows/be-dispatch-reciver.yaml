@@ -1,26 +1,42 @@
-name: Dispatcher
+name: Dispacher Reciver
 
 on:
-  push:
-    branches:
-      - main
-
+  workflow_dispatch:
+    inputs:
+      version_id:
+        description: 'updated version'
+        required: true
+        
 concurrency:
   group: Deployment
-
+  
 jobs:
-  build_release:
-    name: build_release
+  id:
+    name: Deploy to production
     runs-on: self-hosted
     steps:
-      - name: Checkout
+        
+      - name: checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
+          
+      - name: Location
+        run: pwd
+          
+      - name: update the version
+        env:
+          VERSION: ${{github.event.inputs.version_id}}
+        run: "sed -i -E \"s/image: kshithija\\/maeno-be:v[0-9]+\\.[0-9]+\\.[0-9]+/image: kshithija\\/maeno-be:$VERSION/g\" ./infra-code/maeno-be-deployment.yaml"
+        
+      - name: Commit version update
+        run: |
+          git commit -am "Automated version update"
+          git push origin main
+          
       - name: deploy
         run: "kubectl apply -f ./infra-code -R"
-        
+          
       - name: Build artifacts
         run: zip -r maeno-infra.zip .
         
@@ -30,8 +46,8 @@ jobs:
         with:
           draft: false
           prerelease: false
-          release_name: maeno-infra-${{github.event.inputs.version_id}}
-          tag_name: infra-${{github.event.inputs.version_id}}
+          release_name: maeno-infra-be-${{github.event.inputs.version_id}}
+          tag_name: be-${{github.event.inputs.version_id}}
         env:
           GITHUB_TOKEN: ${{ github.token }}
           

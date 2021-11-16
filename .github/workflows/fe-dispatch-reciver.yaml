@@ -8,7 +8,7 @@ on:
         required: true
         
 concurrency:
-  group: FE-Deployment
+  group: Deployment
   
 jobs:
   id:
@@ -27,7 +27,7 @@ jobs:
       - name: update the version
         env:
           VERSION: ${{github.event.inputs.version_id}}
-        run: "sed -i -E \"s/image: kshithija\\/maeno-fe:v[0-9]+\\.[0-9]+\\.[0-9]+/image: kshithija\\/maeno-fe:$VERSION/g\" ./infra-code/maeno-fe.yaml"
+        run: "sed -i -E \"s/image: kshithija\\/maeno-fe:v[0-9]+\\.[0-9]+\\.[0-9]+/image: kshithija\\/maeno-fe:$VERSION/g\" ./infra-code/maeno-fe-deployment.yaml"
         
       - name: Commit version update
         run: |
@@ -46,8 +46,8 @@ jobs:
         with:
           draft: false
           prerelease: false
-          release_name: maeno-infra-${{github.event.inputs.version_id}}
-          tag_name: ${{github.event.inputs.version_id}}
+          release_name: maeno-infra-fe-${{github.event.inputs.version_id}}
+          tag_name: fe-${{github.event.inputs.version_id}}
         env:
           GITHUB_TOKEN: ${{ github.token }}
           
