@@ -13,6 +13,10 @@ jobs:
     name: build_release
     runs-on: self-hosted
     steps:
+      - name: Version
+        run: echo "::set-output name=version::$(cat version | cut -d ':' -f2 | awk '{$1=$1};1')"
+        id: version
+        
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -30,8 +34,8 @@ jobs:
         with:
           draft: false
           prerelease: false
-          release_name: maeno-infra-${{github.event.inputs.version_id}}
-          tag_name: infra-${{github.event.inputs.version_id}}
+          release_name: maeno-infra-${{ steps.version.outputs.version }}
+          tag_name: infra-${{ steps.version.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
           
