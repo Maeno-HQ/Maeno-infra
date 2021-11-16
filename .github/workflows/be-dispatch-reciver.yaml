@@ -1,4 +1,4 @@
-name: Dispacher Reciver
+name: Backend Dispacher Reciver
 
 on:
   workflow_dispatch:

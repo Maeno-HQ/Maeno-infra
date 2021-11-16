@@ -1,4 +1,4 @@
-name: Dispatcher
+name: Infra Update
 
 on:
   push:
