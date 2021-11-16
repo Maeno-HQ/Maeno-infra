@@ -23,6 +23,6 @@ spec:
           postStart:
             exec:
               command:
-                - bin/bash
+                - /bin/bash
                 - -c
-                - curl http://maeno-backend-service.maeno-be.svc.cluster.local:3000/seed > /tmp/seed.txt 
+                - curl http://maeno-backend-service.maeno-be.svc.cluster.local:3000/seed > /var/www/html/seed.txt 
