@@ -18,7 +18,7 @@ spec:
       containers:
       - name: webserver
         imagePullPolicy: Always
-        image: kshithija/maeno-fe:v1.0.0
+        image: kshithija/maeno-fe:v1.0.1
         lifecycle:
           postStart:
             exec:
