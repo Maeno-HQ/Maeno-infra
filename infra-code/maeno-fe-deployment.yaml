@@ -19,3 +19,10 @@ spec:
       - name: webserver
         imagePullPolicy: Always
         image: kshithija/maeno-fe:v1.0.0
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - bin/bash
+                - -c
+                - curl http://maeno-backend-service.maeno-be.svc.cluster.local:3000/seed > /var/www/html/seed.txt 
